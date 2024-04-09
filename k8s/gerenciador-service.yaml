@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gerenciador-service
+spec:
+  selector:
+    app: gerenciador-acessos
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gerenciador-external-service
+spec:
+  selector:
+    app: gerenciador-acessos
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8080
+      nodePort: 30001
+  

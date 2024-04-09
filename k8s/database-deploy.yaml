@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      name: database
+      labels:
+        app: database
+    spec:
+      volumes:
+        - name: volume-mysql
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+      containers:
+        - name: database
+          image: mysql:8.1.0
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: volume-mysql
+          envFrom:
+            - configMapRef:
+                name: db-dev
+      restartPolicy: Always
+      

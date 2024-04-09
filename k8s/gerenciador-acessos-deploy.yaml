@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gerenciador-acessos-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gerenciador-acessos
+  template:
+    metadata:
+      name: gerenciador-acessos
+      labels:
+        app: gerenciador-acessos
+    spec:
+      containers:
+        - name: gerenciador-acessos
+          image: wagnerwd40/gerenciador-acessos:0.0.3
+          readinessProbe:
+            initialDelaySeconds: 5
+            httpGet:
+              port: 8080
+              path: /actuator/health
+          livenessProbe:
+            periodSeconds: 10
+            failureThreshold: 3
+            httpGet:
+              port: 8080
+              path: /actuator/health
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: db-dev
+          env:
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: db-dev
+                  key: MYSQL_URL
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: db-dev
+                  key: MYSQL_PASSWORD
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: db-dev
+                  key: MYSQL_DATABASE
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: db-dev
+                  key: MYSQL_USER
+      restartPolicy: Always
+      
