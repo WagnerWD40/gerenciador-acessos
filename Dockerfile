@@ -1,5 +1,7 @@
 FROM eclipse-temurin:21
 
+WORKDIR /app
+
 COPY build/libs/gerenciador-acessos-${VERSION}.jar app.jar
 
 EXPOSE 8080
