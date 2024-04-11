@@ -1,6 +1,6 @@
 FROM eclipse-temurin:21
 
-COPY build/libs/gerenciador-acessos-0.0.1-SNAPSHOT.jar app.jar
+COPY build/libs/gerenciador-acessos-${VERSION}.jar app.jar
 
 EXPOSE 8080
 
