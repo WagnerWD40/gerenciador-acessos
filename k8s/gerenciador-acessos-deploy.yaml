@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: gerenciador-acessos
-          image: wagnerwd40/gerenciador-acessos:0.0.3
+          image: wagnerwd40/gerenciador-acessos:0.0.3-SNAPSHOT
           readinessProbe:
             initialDelaySeconds: 5
             httpGet:

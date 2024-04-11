@@ -22,9 +22,14 @@ spec:
           volumeMounts:
             - mountPath: /etc/prometheus
               name: config-volume
+            - mountPath: /prometheus
+              name: prometheus-volume
       volumes:
         - name: config-volume
           configMap:
             name: prometheus-cm
+        - name: prometheus-volume
+          persistentVolumeClaim:
+            claimName: prometheus-pvc
       restartPolicy: Always
       
