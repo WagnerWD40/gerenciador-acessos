@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: gerenciador-acessos-deploy
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app: gerenciador-acessos

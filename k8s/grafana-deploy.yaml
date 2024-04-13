@@ -19,5 +19,12 @@ spec:
         - name: grafana
           image: grafana/grafana-enterprise
           imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: grafana-volume
+      volumes:
+        - name: grafana-volume
+          persistentVolumeClaim:
+            claimName: grafana-pvc
       restartPolicy: Always
       
